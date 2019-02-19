@@ -1,0 +1,53 @@
+NEGRU BOGDAN - CRISTIAN
+        325CA
+
+
+TASK 1 - inainte de a apela functia pt a determina adresa cheii, am parcurs string-ul 
+        pana la finalul acestuia si am retinut deplasamentul fata de inceput, pe care
+        l-am adaugat la adresa de inceput a stringului, astfel obtinand adresa cheii.
+        In functie am aflat lungimea stringului in eticheta iterate_11, apoi am luat
+        cate un byte si din string si din cheie (plecand de la sfarsit) si am facut 
+        xor intre acestia
+
+TASK 2 - aflu numarul de caractere din stringul encoded, similar cu ce am facut la
+        task 1 si fac xor intre byte - ul dat de index si cel dinaintea lui (index-ul 
+        plecand de la dimensiunea sirului), este important sa se plece de la sfarsit pt
+        a respecta regula de la encode
+
+TASK 3 - inainte de apel,similar cu task 1, aflu adresa cheii. In functie incep prin a
+        lua mereu cate 2 bytes pe care ii convertesc respectand regula semnificatiilor
+        hexa si in funtie de valoarea ascii a byte-ului ce urmeaza a fi convertit se
+        sare ori intr-un label unde se scade '0', ori unde se scade 'W' (valoare
+        din tabelul ascii, W e la 10 pozitii fata de a). Ii da primului byte valoarea
+        corespunzatoare pt pozitia 1 in hexa si adun al doilea byte, rezultatul fiind 
+        pe pozitia primului byte. Fac acest lucru si pt urmatoarele grupari de cate 2 
+        bytes pana cand ajung la finalul string-ului (rezultand astfel valorile
+        necesare pe pozitii pare). Cand ajung la finalul string-ului pt a repeta
+        procedeul si pt cheie am "un eax" pe stiva a carei valoare imi indica daca
+        in momentul respectiv convertesc string-ul sau cheia, astfel ca daca eax-ul
+        spune ca pana acum am convertit string-ul atunci mai fac un jump la "parse_3",
+        insa initial retin valoarea lui edx pe stiva care imi arata dimensiunea string-
+        ului. In eticheta xor_byte_3 fac xor intre pozitiile pare din string si cheie,
+        plecand de la sfarsit si retinand rezultatul pe pozitiile din string. 
+        In eticheta create_string unesc rezultatele cu ajutorul unui index care pleaca
+        de la 1 (rez de pe pozitia 0 este deja la locul lui) si pun byte-ul de pe 
+        pozitia 2 * index pe pozitia index.
+
+TASK 4 - nu a iesit :((( 
+
+TASK 5 - plec cu un octet de la 0 pe care il incrementez dupa ce am terminat de
+        parcurs string-ul fara a gasi secventa "force" dupa xor intre octetul meu si
+        fiecare octet din sir. Pt a testa daca exista secventa force dupa xor, am 
+        creat cate un label pt fiecare caracter, unde se sare din unul in altul in caz
+        ca se respecta gasire caracterelor din force. Daca am gasit inseamna ca
+        formatul curent al octetului meu reprezinta cheia,asa ca fac xor intre aceasta
+        fiecare octet din sir, pun cheia in ebx pt a o afisa.
+
+TASK 6 - initial transform fiecare byte din cheie ce retine un caracter intr-un byte
+        ce retine offset-ul fata de 'a'. Imi stabilesc propriul terminator de sir (-1)
+        pt a nu se confunda cu cazul in care offset-ul e 0. Parcurg simultan cheia cu
+        offset-uri si string-ul si din fiecare byte din string scad byte-ul cu offset-
+        ul corespunzator (dupa ultimul byte din cheie, fac index-ul pt cheie 0). Daca
+        rezultatul are valoare mai mica pe ascii decat 'a', atunci trebuie sa setez
+        byte-ul ca fiind la o diferenta fata de 'z' + 1, precum este rezultatul curent
+        fata de 'a' 
